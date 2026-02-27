@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="styles/popup.css">
+</head>
+<body>
+  <div class="popup">
+    <div class="header">
+      <span class="logo">🔍 Pebble</span>
+      <span class="status active">Active</span>
+    </div>
+
+    <div class="section">
+      <label>Parent Email</label>
+      <input type="email" id="parentEmail" placeholder="parent@email.com" />
+    </div>
+
+    <div class="section">
+      <label>Child's Name</label>
+      <input type="text" id="childName" placeholder="e.g. Alex" />
+    </div>
+
+    <div class="section">
+      <label>Child's Age Group</label>
+      <select id="ageGroup">
+        <option value="young">6–9 (Full protection)</option>
+        <option value="middle">10–13 (Warnings + explanations)</option>
+        <option value="teen">14–17 (Coaching mode)</option>
+      </select>
+    </div>
+
+    <button id="save">Save Settings</button>
+    <p class="saved-msg" id="savedMsg">✓ Saved!</p>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

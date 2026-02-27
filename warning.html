@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="styles/warning.css">
+</head>
+<body>
+  <div class="container">
+    <div class="icon">⚠️</div>
+    <h1>Hold on!</h1>
+    <p class="subtitle">This page looks suspicious.</p>
+    
+    <div class="explanation" id="explanation">
+      This site is asking for personal information but doesn't look like a real store or service. Scammers make fake sites to trick you.
+    </div>
+
+    <div class="signs">
+      <h3>Warning signs we spotted:</h3>
+      <ul id="warning-signs">
+        <li>Promises something for free that usually costs money</li>
+        <li>Asks you to verify you're human to claim a prize</li>
+        <li>URL doesn't match a known official site</li>
+      </ul>
+    </div>
+
+    <div class="actions">
+      <button class="btn-danger" id="go-back">← Take me back</button>
+      <button class="btn-secondary" id="ask-parent">Ask a Parent 👋</button>
+      <button class="btn-ghost" id="proceed">I understand the risk, continue</button>
+    </div>
+  </div>
+  <script src="warning.js"></script>
+</body>
+</html>
