@@ -8,7 +8,7 @@
   // Each pattern has: regex, a scam type, and a short kid-friendly message
 
   const PATTERNS = [
-    {
+    /*{
     "urlPatterns": [
         "free-robux",
         "robux-generator",
@@ -44,7 +44,7 @@
         "send this to 10 friends",
         "your account has been compromised click here"
     ]
-    },
+    },*/
     {
       pattern: /free\s*robux/i,
       type: "fake_currency",
