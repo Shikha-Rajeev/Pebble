@@ -51,6 +51,7 @@
       flag: "free robux",
       msg: "No website can give you free Robux. This is a scam! 🚨",
       tip: "Robux can only come from the official Roblox site.",
+      learn: "Scammers build fake sites that look real. They want your username and password so they can log into your actual account and steal it or sell it."
     },
     {
       pattern: /free\s*v[\-\s]?bucks/i,
@@ -58,6 +59,7 @@
       flag: "free V-Bucks",
       msg: "Free V-Bucks generators are always fake. Don't enter anything! 🚨",
       tip: "Only buy V-Bucks from the official Fortnite store.",
+      learn: "Scammers make fake V-Bucks generators to trick you into giving them your account info."
     },
     {
       pattern: /generate.*robux/i,
@@ -65,6 +67,7 @@
       flag: "Robux generator",
       msg: "Robux can't be 'generated'. This page is lying to you! 🚨",
       tip: "Scammers use this trick to steal your Roblox account.",
+      learn: "Scammers make fake Robux generators to trick you into giving them your account info."
     },
     {
       pattern: /free\s*skins?/i,
@@ -72,6 +75,7 @@
       flag: "free skins",
       msg: "Free skin sites steal your game account. Be careful! ⚠️",
       tip: "Only get skins from official in-game stores.",
+      learn: "Scammers make fake skin sites to trick you into giving them your account info."   
     },
     {
       pattern: /enter your (roblox |fortnite |)password/i,
@@ -79,6 +83,7 @@
       flag: "enter your password",
       msg: "STOP! Never give your password to a random website! 🔐",
       tip: "This site is trying to steal your account.",
+      learn: "Scammers build fake sites that look real. They want your username and password so they can log into your actual account and steal it or sell it."
     },
     {
       pattern: /verify you('re| are) human to (get|claim|receive)/i,
@@ -86,6 +91,7 @@
       flag: "verify you're human",
       msg: "This fake 'human check' is a scam trick. Leave now! ⚠️",
       tip: "Real sites don't make you verify to get free things.",
+      learn: "Scammers make fake 'human verification' checks to trick you into giving them your account info."  
     },
     {
       pattern: /you('ve| have) (won|been selected|been chosen)/i,
@@ -93,6 +99,7 @@
       flag: "you've won",
       msg: "You didn't really win anything — this is a trick! 🎭",
       tip: "These 'winner' messages go to everyone who visits.",
+      learn: "Scammers make fake 'winner' messages to trick you into giving them your account info."
     },
     {
       pattern: /claim your (free |)gift card/i,
@@ -100,6 +107,7 @@
       flag: "claim your gift card",
       msg: "Free gift card sites are almost always scams! 🎁",
       tip: "They collect your info but never send anything.",
+      learn: "Scammers make fake gift card sites to trick you into giving them your account info."
     },
     {
       pattern: /limited time.*free/i,
@@ -107,6 +115,7 @@
       flag: "limited time free",
       msg: "That countdown is fake — they're rushing you on purpose! ⏰",
       tip: "Scammers use urgency so you don't stop to think.",
+        learn: "Scammers create fake countdowns to pressure you into giving them your account info before you realize it's a trick."
     },
   ];
 
@@ -187,27 +196,41 @@
   // ---- BUILD TOOLTIP ----
 
   function createTooltip(patternInfo) {
-    const tip = document.createElement("div");
-    tip.id = "pebble-tooltip";
-    tip.innerHTML = `
-      <div class="pb-inner">
-        <div class="pb-top">
-          <span class="pb-icon">🛡️</span>
-          <div class="pb-text">
-            <strong class="pb-msg">${patternInfo.msg}</strong>
-            <span class="pb-tip">${patternInfo.tip}</span>
-          </div>
-          <button class="pb-close" id="pb-close">✕</button>
+  const tip = document.createElement("div");
+  tip.id = "pebble-tooltip";
+  tip.innerHTML = `
+    <div class="pb-inner">
+      <div class="pb-top">
+        <span class="pb-icon">🛡️</span>
+        <div class="pb-text">
+          <strong class="pb-msg">${patternInfo.msg}</strong>
+          <span class="pb-tip">${patternInfo.tip}</span>
         </div>
-        <div class="pb-actions">
-          <button class="pb-btn pb-btn-safe" id="pb-safe">🏃 Leave this page</button>
-          <button class="pb-btn pb-btn-parent" id="pb-parent">👋 Ask a parent</button>
+        <button class="pb-close" id="pb-close">✕</button>
+      </div>
+
+      ${patternInfo.learn ? `
+      <div class="pb-learn-section">
+        <button class="pb-learn-toggle" id="pb-learn-toggle">
+          <span class="pb-learn-icon">💡</span>
+          <span class="pb-learn-label">Why is this a scam?</span>
+          <span class="pb-learn-chevron">▾</span>
+        </button>
+        <div class="pb-learn-body" id="pb-learn-body">
+          <div class="pb-learn-content">${patternInfo.learn}</div>
         </div>
       </div>
-      <div class="pb-arrow" id="pb-arrow"></div>
-    `;
-    return tip;
-  }
+      ` : ''}
+
+      <div class="pb-actions">
+        <button class="pb-btn pb-btn-safe" id="pb-safe">🏃 Leave this page</button>
+        <button class="pb-btn pb-btn-parent" id="pb-parent">👋 Ask a parent</button>
+      </div>
+    </div>
+    <div class="pb-arrow" id="pb-arrow"></div>
+  `;
+  return tip;
+}
 
   // ---- POSITION TOOLTIP NEXT TO ELEMENT ----
 
@@ -436,6 +459,76 @@
         border-right: 10px solid transparent;
         border-bottom: 10px solid #ff7a2f;
       }
+
+      .pb-learn-section {
+  border-top: 2px solid #fde8cc;
+  border-bottom: 2px solid #fde8cc;
+}
+
+.pb-learn-toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 12px;
+  background: #fff9f0;
+  border: none;
+  cursor: pointer;
+  font-family: 'Baloo 2', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  color: #c06030;
+  text-align: left;
+  transition: background 0.15s;
+}
+
+.pb-learn-toggle:hover {
+  background: #fde8cc;
+}
+
+.pb-learn-icon {
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.pb-learn-label {
+  flex: 1;
+}
+
+.pb-learn-chevron {
+  font-size: 13px;
+  transition: transform 0.25s ease;
+  display: inline-block;
+}
+
+.pb-learn-chevron.open {
+  transform: rotate(180deg);
+}
+
+.pb-learn-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s ease;
+  background: #fffaf5;
+}
+
+.pb-learn-body.expanded {
+  grid-template-rows: 1fr;
+}
+
+.pb-learn-content {
+  overflow: hidden;
+  font-size: 12px;
+  font-weight: 600;
+  color: #7a6050;
+  line-height: 1.6;
+  padding: 0 12px;
+  transition: padding 0.3s ease;
+}
+
+.pb-learn-body.expanded .pb-learn-content {
+  padding: 10px 12px;
+}
     `;
     document.head.appendChild(style);
   }
@@ -477,6 +570,24 @@
       chrome.runtime.sendMessage({ type: "NOTIFY_PARENT", url: window.location.href });
       document.getElementById("pb-parent").textContent = "✓ Done!";
     });
+
+    const learnToggle = document.getElementById("pb-learn-toggle");
+if (learnToggle) {
+  const learnBody = document.getElementById("pb-learn-body");
+  const chevron = learnToggle.querySelector(".pb-learn-chevron");
+  const learnLabel = learnToggle.querySelector(".pb-learn-label");
+
+  learnToggle.addEventListener("click", () => {
+    const isOpen = learnBody.classList.contains("expanded");
+
+    learnBody.classList.toggle("expanded");
+    chevron.classList.toggle("open");
+    learnLabel.textContent = isOpen ? "Why is this a scam?" : "Got it, thanks!";
+
+    // Reposition tooltip after expand since height changes
+    setTimeout(() => positionTooltip(tooltip, targetEl), 320);
+  });
+}
   }
 
   // ---- RUN ----
